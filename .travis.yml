@@ -4,7 +4,7 @@ os:
   - linux
   - windows
 before_install:
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then chmod +x build.sh; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then chmod +x install.sh; fi
 install:
   - ./install.sh
 script:
