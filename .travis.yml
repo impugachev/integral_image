@@ -1,1 +1,10 @@
 language: cpp
+os:
+- linux
+- windows
+- osx
+script:
+- mkdir build
+- cd build
+- cmake ..
+- cmake --build . --config release
