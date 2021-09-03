@@ -9,5 +9,5 @@ if [ "$TRAVIS_OS_NAME" = "linux" ]; then
   cd .. && sudo make install
 elif [ "$TRAVIS_OS_NAME" = "windows" ]; then
   choco install opencv
-  setx OPENCV_DIR "C:\tools\opencv\build"
+  setx OpenCV_DIR "C:\tools\opencv\build"
 fi
