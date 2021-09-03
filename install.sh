@@ -8,6 +8,5 @@ if [ "$TRAVIS_OS_NAME" = "linux" ]; then
   cmake --build .
   cd .. && sudo make install
 elif [ "$TRAVIS_OS_NAME" = "windows" ]; then
-  choco install opencv
-  setx OpenCV_DIR "C:\tools\opencv\build"
+  choco install opencv /InstallationPath:C:/deps /Environment:C:/deps
 fi
