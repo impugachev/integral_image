@@ -1,9 +1,11 @@
 language: cpp
 os:
-- linux
-- windows
+  - linux
+  - windows
+install:
+  - ./install.sh
 script:
-- mkdir build
-- cd build
-- cmake ..
-- cmake --build . --config release
+  - mkdir build
+  - cd build
+  - cmake ..
+  - cmake --build . --config release
