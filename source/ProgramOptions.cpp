@@ -18,7 +18,7 @@ ProgramOptionsParser::ProgramOptionsParser()
             };
     m_description.add_options()
             ("help,h", "produce help message")
-            ("image,i", po::value<std::vector<std::string>>()->required(),"path to image")
+            ("image,i", po::value<std::vector<std::string>>()->required(),"path to image (required)")
             ("threads,t",
                     po::value<size_t>()->default_value(0)->notifier(threadsChecker),
                     "number of threads");
