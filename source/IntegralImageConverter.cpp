@@ -28,7 +28,7 @@ void IntegralImageConverter::toFiles(const std::vector<Image>& images)
                     latch.count_down();
                 });
             }
-            latch.wait();
+            latch.wait(); // wait all channels
             channels.writeToFile(".integral");
         });
     }

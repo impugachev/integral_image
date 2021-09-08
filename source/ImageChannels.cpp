@@ -7,8 +7,8 @@ namespace app {
 ImageChannels::ImageChannels(const Image& image)
     : m_pathToImage(image.path)
 {
-    std::vector<cv::Mat> buffer; // TODO: remove me
-    cv::split(image.data, buffer);
+    std::vector<cv::Mat> buffer;
+    cv::split(image.data, buffer); // does not accept an iterator, so a buffer is needed
     m_channels.insert(m_channels.begin(), buffer.begin(), buffer.end());
 }
 

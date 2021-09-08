@@ -13,7 +13,7 @@ Channel::Channel(const cv::Mat& mat)
 void Channel::convertToIntegralParallel(boost::asio::thread_pool& threadPool)
 {
     // iterate through diagonals (bottom left - top right)
-    for (int line = 1; line <= (m_mat.rows + m_mat.cols - 1); ++line)
+    for (int line = 1; line < m_mat.rows + m_mat.cols; ++line)
     {
         const auto startCol = std::max(0, line - m_mat.rows);
         const auto count = std::min(line, std::min((m_mat.cols - startCol), m_mat.rows));

@@ -14,7 +14,7 @@ ProgramOptionsParser::ProgramOptionsParser()
             {
                 if (numThreads > 0x7FFFFFFF)
                     throw po::validation_error{
-                            po::validation_error::invalid_option_value,"threads", std::to_string(numThreads)};
+                            po::validation_error::invalid_option_value, "threads", std::to_string(numThreads)};
             };
     m_description.add_options()
             ("help,h", "produce help message")
