@@ -21,7 +21,7 @@ ProgramOptionsParser::ProgramOptionsParser()
             ("image,i", po::value<std::vector<std::string>>()->required(),"path to image (required)")
             ("threads,t",
                     po::value<size_t>()->default_value(0)->notifier(threadsChecker),
-                    "number of threads");
+                    "number of threads, 0 - detect automatically");
 }
 
 std::optional<ProgramOptions> ProgramOptionsParser::parse(int argc, const char* const* argv) const
