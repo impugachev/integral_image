@@ -24,6 +24,10 @@ public:
     Channels::iterator begin();
     Channels::iterator end();
     /**
+     * Returns number of channels
+     */
+    size_t size();
+    /**
      * Write channels to a file whose name is `image file + postfix`
      * @param filePostfix output file postfix
      */

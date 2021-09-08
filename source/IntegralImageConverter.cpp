@@ -1,6 +1,7 @@
 #include "IntegralImageConverter.h"
 
 #include "ImageChannels.h"
+#include <boost/thread/latch.hpp>
 
 namespace app {
 
@@ -19,12 +20,15 @@ void IntegralImageConverter::toFiles(const std::vector<Image>& images)
     {
         boost::asio::post(threadPool, [&image, &threadPool](){
             ImageChannels channels{image};
+            boost::latch latch{channels.size()};
             for (auto& channel : channels)
             {
-                boost::asio::post(threadPool, [&channel, &threadPool](){
+                boost::asio::post(threadPool, [&channel, &threadPool, &latch](){
                     channel.convertToIntegralParallel(threadPool);
+                    latch.count_down();
                 });
             }
+            latch.wait();
             channels.writeToFile(".integral");
         });
     }

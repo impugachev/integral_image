@@ -22,6 +22,11 @@ ImageChannels::Channels::iterator ImageChannels::end()
     return m_channels.end();
 }
 
+size_t ImageChannels::size()
+{
+    return m_channels.size();
+}
+
 void ImageChannels::writeToFile(std::string_view filePostfix)
 {
     auto newPath = m_pathToImage;
