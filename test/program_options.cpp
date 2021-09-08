@@ -4,7 +4,7 @@
 #include <gmock/gmock.h>
 #include <array>
 
-struct ProgramOptionsParser : testing::Test
+struct ProgramOptionsFixture : testing::Test
 {
     template <typename ...Ts>
     auto parse(Ts... args)
@@ -19,7 +19,7 @@ struct ProgramOptionsParser : testing::Test
 /**
  * @test Checks if parse returns std::nullopt if help argument is present
  */
-TEST_F(ProgramOptionsParser, ReturnsNulloptOnHelpArg)
+TEST_F(ProgramOptionsFixture, ReturnsNulloptOnHelpArg)
 {
     EXPECT_FALSE(parse("-h"));
 }
@@ -27,7 +27,7 @@ TEST_F(ProgramOptionsParser, ReturnsNulloptOnHelpArg)
 /**
  * @test Checks if parse returns the same images paths as in arguments
  */
-TEST_F(ProgramOptionsParser, ReturnsImagePathsOnImageArgs)
+TEST_F(ProgramOptionsFixture, ReturnsImagePathsOnImageArgs)
 {
     constexpr std::array Images{"img1", "img2"};
     auto options = parse("-i", Images[0], "-i", Images[1]);
@@ -38,7 +38,7 @@ TEST_F(ProgramOptionsParser, ReturnsImagePathsOnImageArgs)
 /**
  * @test Checks if parse returns 0 threads if thread argument is not present
  */
-TEST_F(ProgramOptionsParser, ReturnsZeroIfThreadsArgIsNotPresent)
+TEST_F(ProgramOptionsFixture, ReturnsZeroIfThreadsArgIsNotPresent)
 {
     auto options = parse("-i", "123");
     ASSERT_TRUE(options);
@@ -48,7 +48,7 @@ TEST_F(ProgramOptionsParser, ReturnsZeroIfThreadsArgIsNotPresent)
 /**
  * @test Checks if parse returns same threads number as in arguments
  */
-TEST_F(ProgramOptionsParser, ReturnsSameNumThreadsAsArg)
+TEST_F(ProgramOptionsFixture, ReturnsSameNumThreadsAsArg)
 {
     auto options = parse("-i", "123", "-t", "123");
     ASSERT_TRUE(options);
