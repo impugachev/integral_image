@@ -22,7 +22,6 @@ target_include_directories(lib PRIVATE ${OpenCV_INCLUDE_DIRS} ${Boost_INCLUDE_DI
 target_link_libraries(lib ${OpenCV_LIBS} Boost::program_options Boost::thread)
 
 add_executable(integral_image source/main.cpp)
-target_include_directories(integral_image PRIVATE ${Boost_INCLUDE_DIRS})
 target_link_libraries(integral_image lib)
 
 add_executable(test test/main.cpp test/channel.cpp test/program_options.cpp)
