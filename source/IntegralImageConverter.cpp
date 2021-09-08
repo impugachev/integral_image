@@ -17,12 +17,12 @@ void IntegralImageConverter::toFiles(const std::vector<Image>& images)
     auto& threadPool = *m_threadPool;
     for (const auto& image : images)
     {
-        boost::asio::post(threadPool, [im = &image, &threadPool](){
-            ImageChannels channels{*im};
+        boost::asio::post(threadPool, [&image, &threadPool](){
+            ImageChannels channels{image};
             for (auto& channel : channels)
             {
-                boost::asio::post(threadPool, [ch = &channel, &threadPool](){
-                    ch->convertToIntegralParallel(threadPool);
+                boost::asio::post(threadPool, [&channel, &threadPool](){
+                    channel.convertToIntegralParallel(threadPool);
                 });
             }
             channels.writeToFile(".integral");

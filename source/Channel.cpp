@@ -25,8 +25,6 @@ void Channel::convertToIntegralParallel(boost::asio::thread_pool& threadPool)
             {
                 const auto x = std::min(m_mat.rows, line) - j - 1;
                 const auto y = startCol + j;
-                const auto t = m_mat.type();
-                (void)t;
                 auto& elem = m_mat.at<double>(x, y);
                 // check boundaries
                 if (x != 0)
