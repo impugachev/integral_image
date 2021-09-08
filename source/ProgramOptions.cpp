@@ -1,28 +1,27 @@
 #include "ProgramOptions.h"
-#include <omp.h>
 #include <iostream>
 #include <sstream>
 
 namespace po = boost::program_options;
 
-namespace integral_image {
+namespace app {
 
 ProgramOptionsParser::ProgramOptionsParser()
     : m_description{"Allowed options"}
 {
     auto threadsChecker =
-            [](const int& numThreads)
+            [](const size_t& numThreads)
             {
-                if (numThreads < 0 || numThreads > omp_get_max_threads())
+                if (numThreads > 0x7FFFFFFF)
                     throw po::validation_error{
-                        po::validation_error::invalid_option_value,"threads", std::to_string(numThreads)};
+                            po::validation_error::invalid_option_value,"threads", std::to_string(numThreads)};
             };
     m_description.add_options()
             ("help,h", "produce help message")
             ("image,i", po::value<std::vector<std::string>>()->required(),"path to image")
             ("threads,t",
-                    po::value<int>()->default_value(omp_get_max_threads())->notifier(threadsChecker),
-                    "number of threads, requirements: 0 < t < logical_cores");
+                    po::value<size_t>()->default_value(0)->notifier(threadsChecker),
+                    "number of threads");
 }
 
 std::optional<ProgramOptions> ProgramOptionsParser::parse(int argc, const char* const* argv) const
@@ -33,9 +32,8 @@ std::optional<ProgramOptions> ProgramOptionsParser::parse(int argc, const char* 
         return std::nullopt;
     po::notify(varMap);
 
-    return ProgramOptions{
-        varMap["image"].as<std::vector<std::string>>(), // copy... can I move it somehow?
-        varMap["threads"].as<int>()};
+    const auto& paths = varMap["image"].as<std::vector<std::string>>();
+    return ProgramOptions{{paths.begin(), paths.end()}, varMap["threads"].as<size_t>()};
 }
 
 const ProgramOptionsParser::OptionsDescription& ProgramOptionsParser::getDescription() const
@@ -43,4 +41,4 @@ const ProgramOptionsParser::OptionsDescription& ProgramOptionsParser::getDescrip
     return m_description;
 }
 
-} // namespace integral_image
+} // namespace app

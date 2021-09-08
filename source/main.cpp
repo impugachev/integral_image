@@ -1,16 +1,24 @@
 #include "ProgramOptions.h"
+#include "IntegralImageConverter.h"
+
 #include <iostream>
+
+using namespace app;
 
 int main(int argc, char* argv[])
 {
-    integral_image::ProgramOptionsParser parser;
+    app::ProgramOptionsParser parser;
     try
     {
         auto options = parser.parse(argc, argv);
         if (!options)
         {
             std::cout << parser.getDescription() << std::endl;
+            return 0;
         }
+        auto images = readImages(std::move(options->imagePaths));
+        IntegralImageConverter converter{options->numThreads};
+        converter.toFiles(images);
     }
     catch (const std::exception& e)
     {

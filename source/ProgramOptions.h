@@ -4,22 +4,23 @@
 #include <vector>
 #include <string>
 #include <optional>
+#include <filesystem>
 
 #include <boost/program_options.hpp>
 
-namespace integral_image {
+namespace app {
 
 /**
  * Struct for storing program command line arguments
  */
 struct ProgramOptions
 {
-    std::vector<std::string> imagePaths; ///< image paths for processing
-    int numThreads;                      ///< number of threads that will be used for computing
+    std::vector<std::filesystem::path> imagePaths; ///< image paths for processing
+    size_t numThreads;                             ///< number of threads that will be used for computing
 };
 
 /**
- * Class for parsing program command line arguments
+ * Parser for program command line arguments
  */
 class ProgramOptionsParser
 {
@@ -44,6 +45,6 @@ private:
     OptionsDescription m_description;
 };
 
-} // namespace integral_image
+} // namespace app
 
 #endif //INTEGRAL_IMAGE_PROGRAMOPTIONS_H
