@@ -5,7 +5,7 @@
 
 namespace app {
 
-Channel::Channel(cv::Mat mat)
+Channel::Channel(const cv::Mat& mat)
 {
     mat.convertTo(m_mat, CV_64F);
 }

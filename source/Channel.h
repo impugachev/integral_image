@@ -15,7 +15,7 @@ public:
     /**
      * @param mat single channel
      */
-    explicit Channel(cv::Mat mat);
+    explicit Channel(const cv::Mat& mat);
     /**
      * Convert the channel to integral using thread pool
      */
